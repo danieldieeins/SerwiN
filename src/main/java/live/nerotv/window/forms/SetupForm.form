@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="live.nerotv.window.forms.SetupForm">
+  <grid id="27dc6" binding="main" layout-manager="BorderLayout" hgap="0" vgap="0">
+    <constraints>
+      <xy x="20" y="20" width="1031" height="400"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <grid id="1efb4" binding="menu" layout-manager="GridLayoutManager" row-count="5" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="10" left="10" bottom="10" right="10"/>
+        <constraints border-constraint="West"/>
+        <properties>
+          <background color="-16777216"/>
+          <foreground color="-1"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <component id="4f6a0" class="javax.swing.JButton" binding="updateButton">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <enabled value="true"/>
+              <hideActionText value="false"/>
+              <text value="Automatic updater"/>
+            </properties>
+          </component>
+          <component id="b9369" class="javax.swing.JButton" binding="versionButton">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <enabled value="false"/>
+              <text value="Minecraft version"/>
+            </properties>
+          </component>
+          <component id="2e2c7" class="javax.swing.JButton" binding="buildButton">
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <enabled value="false"/>
+              <text value="Paper build"/>
+            </properties>
+          </component>
+          <component id="88156" class="javax.swing.JButton" binding="saveButton">
+            <constraints>
+              <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-13858075"/>
+              <enabled value="false"/>
+              <foreground color="-1"/>
+              <text value="Save and proceed"/>
+            </properties>
+          </component>
+          <vspacer id="ec8f0">
+            <constraints>
+              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </vspacer>
+        </children>
+      </grid>
+      <grid id="c7706" binding="content" layout-manager="CardLayout" hgap="0" vgap="0">
+        <constraints border-constraint="Center"/>
+        <properties/>
+        <border type="none"/>
+        <children/>
+      </grid>
+      <component id="6e475" class="javax.swing.JProgressBar" binding="processBar">
+        <constraints border-constraint="South"/>
+        <properties>
+          <value value="0"/>
+        </properties>
+      </component>
+    </children>
+  </grid>
+</form>
