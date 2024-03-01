@@ -18,6 +18,7 @@ public class EULAForm extends SerwinFrame {
     private JTextPane textPane;
 
     public EULAForm() {
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setContentPane(main);
         yesButton.addActionListener(e -> {
             dispose();

@@ -16,6 +16,7 @@ public class ErrorForm extends SerwinFrame {
     private JButton okayButton;
 
     public ErrorForm(String errorTitle) {
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setContentPane(main);
         setTitle("SerwiN v" + Serwin.serwin + " error: " + errorTitle);
         okayButton.addActionListener(e -> dispose());
