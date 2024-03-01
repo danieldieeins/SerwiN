@@ -7,6 +7,7 @@ import live.nerotv.utils.Config;
 import live.nerotv.utils.Logger;
 import live.nerotv.window.SerwinFrame;
 import live.nerotv.window.forms.EULAForm;
+import live.nerotv.window.forms.LoadingForm;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,12 +26,12 @@ public class Serwin {
 
     public static ArrayList<String> args = new ArrayList<>();
     public static Config config;
-    public static SerwinFrame frame = null;
     public static Logger logger;
     public static Scanner scanner = new Scanner(System.in);
     public static String serwin = "2024.3-alpha.3";
+    public static LoadingForm loadingForm;
+    public static boolean desktop;
 
-    private static boolean desktop;
     private static PaperInstaller installer;
     private static String build;
     private static String path;
@@ -46,7 +47,6 @@ public class Serwin {
     }
 
     public static void start() {
-        frame = null;
         if(build==null) {
             build = config.getString("settings.paper.build");
         }
@@ -61,22 +61,21 @@ public class Serwin {
 
     private static void initDesktop() {
         if (config.getString("settings.paper.version") == null || config.getString("settings.paper.build") == null) {
-            try {
-                FlatDarkLaf.setup();
-                UIManager.setLookAndFeel(new FlatDarkLaf());
-            } catch (Exception ignore) {
-            }
             SerwinFrame eulaForm = SerwinFrame.get(new EULAForm());
-            Dimension size = new Dimension(500,145);
-            eulaForm.setMinimumSize(size);
-            eulaForm.setSize(size);
-            eulaForm.setMaximumSize(size);
-            eulaForm.setResizable(false);
-            eulaForm.setLocationRelativeTo(null);
             eulaForm.setVisible(true);
         } else {
             start();
         }
+    }
+
+    public static LoadingForm openLoadingForm(String title, String text) {
+        Dimension size = new Dimension(500,145);
+        LoadingForm loadingForm = (LoadingForm)SerwinFrame.get(new LoadingForm());
+        loadingForm.setMinimumSize(size); loadingForm.setSize(size);
+        loadingForm.setResizable(false);
+        loadingForm.setLocationRelativeTo(null);
+        loadingForm.setVisible(true);
+        return loadingForm;
     }
 
     private static void init() {
@@ -211,7 +210,6 @@ public class Serwin {
             }
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
                 writer.write(content);
-                System.out.println("Text erfolgreich in die Datei geschrieben.");
             }
         } catch (IOException e) {
             logger.error("Couldn't accept the Minecraft EULA: "+e.getMessage());
@@ -226,6 +224,13 @@ public class Serwin {
                 if (argument.equalsIgnoreCase("--nogui")) {
                     desktop = false;
                     break;
+                }
+            }
+            if(desktop) {
+                try {
+                    FlatDarkLaf.setup();
+                    UIManager.setLookAndFeel(new FlatDarkLaf());
+                } catch (Exception ignore) {
                 }
             }
         } else {

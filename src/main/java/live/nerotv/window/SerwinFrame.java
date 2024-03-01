@@ -8,7 +8,6 @@ import java.awt.*;
 public class SerwinFrame extends JFrame {
 
     public static SerwinFrame get(SerwinFrame frame) {
-        frame.setMinimumSize(new Dimension(640,360));
         String title = frame.getTitle();
         if(title.isEmpty()) {
             title = "SerwiN v"+ Serwin.serwin;
@@ -16,10 +15,6 @@ public class SerwinFrame extends JFrame {
         frame.setTitlebar(title,Color.black,Color.white);
         frame.init();
         frame.pack();
-
-        frame.setSize(new Dimension(960,540));
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
         return frame;
     }
 

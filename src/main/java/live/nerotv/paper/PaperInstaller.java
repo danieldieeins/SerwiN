@@ -1,6 +1,7 @@
 package live.nerotv.paper;
 
 import live.nerotv.Serwin;
+import live.nerotv.window.forms.LoadingForm;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -12,6 +13,7 @@ public class PaperInstaller {
 
     private PaperBuild build;
     private String path = "";
+    private LoadingForm loadingForm;
 
     public PaperInstaller(PaperBuild build) {
         this.build = build;
@@ -31,6 +33,10 @@ public class PaperInstaller {
     }
 
     public boolean install() {
+        boolean r = false;
+        if(Serwin.desktop) {
+            loadingForm = Serwin.openLoadingForm("Paper","Please wait - We're checking for updates...");
+        }
         Serwin.logger.log("Downloading "+build.getName()+"...");
         File cache = new File(path+"cache/");
         if(cache.exists()) {
@@ -38,11 +44,15 @@ public class PaperInstaller {
         }
         cache.mkdirs();
         if(downloadFile(build.getURL(),path+"cache/"+build.getFilename()).exists()) {
-            return true;
+            r = true;
         } else {
             Serwin.logger.error("Couldn't install "+build.getName()+": Not found");
             throw new RuntimeException("Couldn't install "+build.getName()+": Not found");
         }
+        if(Serwin.desktop) {
+            loadingForm.dispose();
+        }
+        return r;
     }
 
     private void deleteFolder(File folder) {
@@ -60,6 +70,9 @@ public class PaperInstaller {
     }
 
     private File downloadFile(String urlString, String path) {
+        if(Serwin.desktop) {
+            loadingForm.setText("Please wait - Downloading Paper "+build.getVersion()+"-"+build.getBuildNumber()+"...");
+        }
         try {
             URL url = new URL(urlString);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -75,6 +88,9 @@ public class PaperInstaller {
                 }
                 inputStream.close();
                 outputStream.close();
+                if(Serwin.desktop) {
+                    loadingForm.setText("Please wait - Installing Paper "+build.getVersion()+"-"+build.getBuildNumber()+"...");
+                }
                 return outputFile;
             }
         } catch (Exception ignore) {}

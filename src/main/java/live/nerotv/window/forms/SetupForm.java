@@ -1,5 +1,8 @@
 package live.nerotv.window.forms;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
@@ -9,6 +12,8 @@ import live.nerotv.window.SerwinFrame;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.Collections;
 
@@ -173,10 +178,33 @@ public class SetupForm extends SerwinFrame {
             Serwin.config.set("settings.paper.build", comboBox_.getItemAt(comboBox_.getSelectedIndex()));
             initFinal();
         });
+        JButton changelog = new JButton("Changelog");
+        changelog.addActionListener(e -> openChangelogForm());
+        buttons_.add(changelog);
         buttons_.add(proceed);
         buttons_.setBackground(null);
         dock_.add(buttons_, BorderLayout.EAST);
         build.add(dock_, BorderLayout.SOUTH);
+    }
+
+    private void openChangelogForm() {
+        String version = Serwin.config.getString("settings.paper.version");
+        String build = comboBox_.getItemAt(comboBox_.getSelectedIndex());
+        try {
+            InputStreamReader reader = new InputStreamReader(new URL("https://papermc.io/api/v2/projects/paper/versions/" + version + "/builds/" + build + "/").openStream());
+            JsonObject json = new Gson().fromJson(reader, JsonObject.class);
+            JsonArray array = json.get("changes").getAsJsonArray();
+            JsonObject build_ = array.get(0).getAsJsonObject();
+            String commit = build_.get("commit").getAsString();
+            String message = build_.get("message").getAsString();
+            LinkForm form = (LinkForm) SerwinFrame.get(new LinkForm("https://github.com/PaperMC/paper/commit/" + commit));
+            form.setTitle(form.getTitle() + " Paper " + version + " build " + build + " changelog");
+            form.setText(message.replace("\n", "<br>"));
+            form.setButton("Click here to open GitHub changelog");
+            form.setVisible(true);
+        } catch (Exception e) {
+            Serwin.logger.error("Couldn't open changelog form: " + e.getMessage());
+        }
     }
 
     private void initFinish() {
@@ -364,4 +392,5 @@ public class SetupForm extends SerwinFrame {
     public JComponent $$$getRootComponent$$$() {
         return main;
     }
+
 }

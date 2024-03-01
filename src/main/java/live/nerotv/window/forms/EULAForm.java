@@ -23,7 +23,11 @@ public class EULAForm extends SerwinFrame {
         yesButton.addActionListener(e -> {
             dispose();
             Serwin.acceptEULA();
-            Serwin.frame = SerwinFrame.get(new SetupForm());
+            SerwinFrame frame = SerwinFrame.get(new SetupForm());
+            frame.setMinimumSize(new Dimension(640, 360));
+            frame.setSize(new Dimension(960, 540));
+            frame.setLocationRelativeTo(null);
+            frame.setVisible(true);
         });
         noButton.addActionListener(e -> {
             dispose();
@@ -48,6 +52,12 @@ public class EULAForm extends SerwinFrame {
                 }
             }
         });
+        Dimension size = new Dimension(500, 145);
+        setMinimumSize(size);
+        setSize(size);
+        setMaximumSize(size);
+        setResizable(false);
+        setLocationRelativeTo(null);
     }
 
     {
