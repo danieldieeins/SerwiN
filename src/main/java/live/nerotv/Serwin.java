@@ -28,8 +28,9 @@ public class Serwin {
     public static SerwinFrame frame = null;
     public static Logger logger;
     public static Scanner scanner = new Scanner(System.in);
-    public static String serwin = "2024.3-alpha.2";
+    public static String serwin = "2024.3-alpha.3";
 
+    private static boolean desktop;
     private static PaperInstaller installer;
     private static String build;
     private static String path;
@@ -79,7 +80,7 @@ public class Serwin {
     }
 
     private static void init() {
-        if (Desktop.isDesktopSupported()) {
+        if (desktop) {
             initDesktop();
         } else {
             if (config.getString("settings.paper.version") == null || config.getString("settings.paper.build") == null) {
@@ -219,6 +220,17 @@ public class Serwin {
 
 
     private static void initArguments(String[] a) {
+        if(Desktop.isDesktopSupported()) {
+            desktop = true;
+            for(String argument:a) {
+                if (argument.equalsIgnoreCase("--nogui")) {
+                    desktop = false;
+                    break;
+                }
+            }
+        } else {
+            desktop = false;
+        }
         args = new ArrayList<>();
         args.addAll(Arrays.asList(a));
     }
