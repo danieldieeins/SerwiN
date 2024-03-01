@@ -51,7 +51,13 @@ public class SetupForm extends SerwinFrame {
         content.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         updateButton.addActionListener(e -> {
-            initUpdaterSettings();
+            SerwinFrame frame = SerwinFrame.get(new SetupForm());
+            frame.setMinimumSize(new Dimension(640, 360));
+            frame.setSize(getSize());
+            frame.setLocation(getLocation());
+            frame.setVisible(true);
+            setVisible(false);
+            dispose();
         });
         versionButton.addActionListener(e -> {
             initVersionSettings();
@@ -74,7 +80,6 @@ public class SetupForm extends SerwinFrame {
     private void initUpdate() {
         autoUpdate = new JPanel();
         autoUpdate.setLayout(new BorderLayout());
-        processBar.setValue(0);
         JTextArea text = new JTextArea();
         text.setText("During startup, should SerwiN check if there are new paper builds and install them if so?");
         text.setEditable(false);
@@ -236,20 +241,22 @@ public class SetupForm extends SerwinFrame {
     }
 
     private void initUpdaterSettings() {
+        Serwin.config.delete("settings.paper");
+        updateButton.setText("Automatic updater");
         try {
             content.remove(autoUpdate);
         } catch (Exception ignore) {
         }
         updateButton.setEnabled(true);
+        buildButton.setEnabled(false);
+        saveButton.setEnabled(false);
+        versionButton.setEnabled(false);
         content.add(autoUpdate);
         if (panel.equalsIgnoreCase("version")) {
-            versionButton.setEnabled(false);
             content.remove(version);
         } else if (panel.equalsIgnoreCase("build")) {
-            buildButton.setEnabled(false);
             content.remove(build);
         } else if (panel.equalsIgnoreCase("final")) {
-            saveButton.setEnabled(false);
             content.remove(final_);
         }
         panel = "update";
@@ -260,16 +267,16 @@ public class SetupForm extends SerwinFrame {
     private void initVersionSettings() {
         if (!panel.equalsIgnoreCase("version")) {
             versionButton.setEnabled(true);
+            updateButton.setEnabled(true);
+            buildButton.setEnabled(false);
+            saveButton.setEnabled(false);
             content.add(version);
         }
         if (panel.equalsIgnoreCase("update")) {
-            updateButton.setEnabled(false);
             content.remove(autoUpdate);
         } else if (panel.equalsIgnoreCase("build")) {
-            buildButton.setEnabled(false);
             content.remove(build);
         } else if (panel.equalsIgnoreCase("final")) {
-            saveButton.setEnabled(false);
             content.remove(final_);
         }
         panel = "version";
@@ -280,6 +287,9 @@ public class SetupForm extends SerwinFrame {
     private void initBuildSettings() {
         if (!panel.equalsIgnoreCase("build")) {
             buildButton.setEnabled(true);
+            updateButton.setEnabled(true);
+            versionButton.setEnabled(true);
+            saveButton.setEnabled(false);
             String[] versions = getBuilds(Serwin.config.getString("settings.paper.version"));
             Collections.reverse(Arrays.asList(versions));
             comboBox_.removeAllItems();
@@ -289,13 +299,10 @@ public class SetupForm extends SerwinFrame {
             content.add(build);
         }
         if (panel.equalsIgnoreCase("update")) {
-            updateButton.setEnabled(false);
             content.remove(autoUpdate);
         } else if (panel.equalsIgnoreCase("version")) {
-            versionButton.setEnabled(false);
             content.remove(version);
         } else if (panel.equalsIgnoreCase("final")) {
-            saveButton.setEnabled(false);
             content.remove(final_);
         }
         panel = "build";
@@ -304,18 +311,19 @@ public class SetupForm extends SerwinFrame {
     }
 
     private void initFinal() {
+        updateButton.setText("Restart setup");
         if (!panel.equalsIgnoreCase("final")) {
             content.add(final_);
             saveButton.setEnabled(true);
+            updateButton.setEnabled(true);
+            versionButton.setEnabled(false);
+            buildButton.setEnabled(false);
         }
         if (panel.equalsIgnoreCase("update")) {
-            updateButton.setEnabled(false);
             content.remove(autoUpdate);
         } else if (panel.equalsIgnoreCase("version")) {
-            versionButton.setEnabled(false);
             content.remove(version);
         } else if (panel.equalsIgnoreCase("build")) {
-            buildButton.setEnabled(false);
             content.remove(build);
         }
         panel = "final";
