@@ -6,7 +6,7 @@
 
     <groupId>live.nerotv</groupId>
     <artifactId>serwin</artifactId>
-    <version>2024.3-alpha.1</version>
+    <version>2024.3-alpha.2</version>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>

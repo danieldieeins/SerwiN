@@ -28,7 +28,7 @@ public class Serwin {
     public static SerwinFrame frame = null;
     public static Logger logger;
     public static Scanner scanner = new Scanner(System.in);
-    public static String serwin = "2024.3-alpha.1";
+    public static String serwin = "2024.3-alpha.2";
 
     private static PaperInstaller installer;
     private static String build;
