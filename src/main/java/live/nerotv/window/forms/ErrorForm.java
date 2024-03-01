@@ -17,7 +17,7 @@ public class ErrorForm extends SerwinFrame {
 
     public ErrorForm(String errorTitle) {
         setContentPane(main);
-        setTitle("Serwin v" + Serwin.serwin + " error: " + errorTitle);
+        setTitle("SerwiN v" + Serwin.serwin + " error: " + errorTitle);
         okayButton.addActionListener(e -> dispose());
     }
 

@@ -11,7 +11,7 @@ public class SerwinFrame extends JFrame {
         frame.setMinimumSize(new Dimension(640,360));
         String title = frame.getTitle();
         if(title.isEmpty()) {
-            title = "Serwin v"+ Serwin.serwin;
+            title = "SerwiN v"+ Serwin.serwin;
         }
         frame.setTitlebar(title,Color.black,Color.white);
         frame.init();

@@ -99,13 +99,13 @@ public class Serwin {
                 if (answer.equals("y") || answer.equals("yes") || answer.equals("t") || answer.equals("true")) {
                     config.set("settings.paper.autoUpdate", true);
                     config.set("settings.paper.build", "latest");
-                    logger.log("[S] Serwin automatically updates Paper.");
+                    logger.log("[S] SerwiN automatically updates Paper.");
                     logger.log("");
                     logger.log("[#] Leave blank or type \"latest\" to automatically update the Minecraft version too.");
                     getMinecraft();
                 } else if (answer.equals("n") || answer.equals("no") || answer.equals("f") || answer.equals("false")) {
                     config.set("settings.paper.autoUpdate", false);
-                    logger.log("[S] Serwin won't check for Paper or Minecraft updates.");
+                    logger.log("[S] SerwiN won't check for Paper or Minecraft updates.");
                     getMinecraft();
                     logger.log("[Q] Which Paper build do you want to use?");
                     answer = scanner.nextLine().toLowerCase();
@@ -128,11 +128,11 @@ public class Serwin {
         if(answer.isEmpty()||answer.startsWith("latest")||answer.startsWith("auto")||answer.startsWith("y")) {
             version = "latest";
             config.set("settings.paper.version","latest");
-            logger.log("[S] Serwin automatically updates the Minecraft version.");
+            logger.log("[S] SerwiN automatically updates the Minecraft version.");
         } else {
             version = answer;
             config.set("settings.paper.version",answer);
-            logger.log("[S] Serwin won't check for Minecraft updates.");
+            logger.log("[S] SerwiN won't check for Minecraft updates.");
             logger.log("[S] Set Minecraft version to "+version+".");
         }
         logger.log("");

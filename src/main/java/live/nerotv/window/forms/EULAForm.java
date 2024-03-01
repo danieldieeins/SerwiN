@@ -36,7 +36,7 @@ public class EULAForm extends SerwinFrame {
             form.setLocationRelativeTo(null);
             form.setVisible(true);
         });
-        setTitle("Serwing v" + Serwin.serwin + " EULA-Check");
+        setTitle("SerwiN v" + Serwin.serwin + " EULA-Check");
         textPane.setContentType("text/html");
         textPane.setText("<html>Have you read the Minecraft EULA and do you accept it?<br><a href='https://www.minecraft.net/eula'>https://www.minecraft.net/eula</a></html>");
         textPane.addHyperlinkListener(e -> {

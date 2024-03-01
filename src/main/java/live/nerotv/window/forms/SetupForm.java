@@ -37,7 +37,7 @@ public class SetupForm extends SerwinFrame {
     public SetupForm() {
         setContentPane(main);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setTitle("Serwin v" + Serwin.serwin + " Setup");
+        setTitle("SerwiN v" + Serwin.serwin + " Setup");
     }
 
     @Override
@@ -71,7 +71,7 @@ public class SetupForm extends SerwinFrame {
         autoUpdate.setLayout(new BorderLayout());
         processBar.setValue(0);
         JTextArea text = new JTextArea();
-        text.setText("During startup, should Serwin check if there are new paper builds and install them if so?");
+        text.setText("During startup, should SerwiN check if there are new paper builds and install them if so?");
         text.setEditable(false);
         text.setFont(new Font(text.getFont().getFontName(), Font.PLAIN, 24));
         text.setLineWrap(true);
@@ -84,7 +84,7 @@ public class SetupForm extends SerwinFrame {
         yes.addActionListener(e -> {
             Serwin.config.set("settings.paper.autoUpdate", true);
             Serwin.config.set("settings.paper.build", "latest");
-            text.setText("Should Serwin always update to the latest Minecraft version available?");
+            text.setText("Should SerwiN always update to the latest Minecraft version available?");
             buttons.remove(yes);
             buttons.remove(no);
             buttons.add(no_);
