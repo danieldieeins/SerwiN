@@ -28,7 +28,7 @@ public class Serwin {
     public static Config config;
     public static Logger logger;
     public static Scanner scanner = new Scanner(System.in);
-    public static String serwin = "2024.3-alpha.3";
+    public static String serwin = "2024.3-alpha.4";
     public static LoadingForm loadingForm;
     public static boolean desktop;
 
@@ -176,7 +176,7 @@ public class Serwin {
 
             ProcessBuilder processBuilder = new ProcessBuilder(command);
             processBuilder.directory(folder);
-            processBuilder.redirectErrorStream(true); // Merge error and output streams
+            processBuilder.redirectErrorStream(true);
             Process process = processBuilder.start();
 
             CompletableFuture.runAsync(() -> {
@@ -189,6 +189,11 @@ public class Serwin {
                     e.printStackTrace();
                 }
             });
+
+            Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+                process.destroy();
+                System.out.println("Shutting down...");
+            }));
 
             int exitCode = process.waitFor();
             logger.log("Server stopped with exit code: " + exitCode);
