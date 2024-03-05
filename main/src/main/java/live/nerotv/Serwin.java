@@ -29,7 +29,6 @@ public class Serwin {
     public static Logger logger;
     public static Scanner scanner = new Scanner(System.in);
     public static String serwin = "2024.3-alpha.4";
-    public static LoadingForm loadingForm;
     public static boolean desktop;
 
     private static PaperInstaller installer;
