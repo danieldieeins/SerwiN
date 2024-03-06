@@ -62,14 +62,15 @@ public class Serwin {
         if (config.getString("settings.paper.version") == null || config.getString("settings.paper.build") == null) {
             SerwinFrame eulaForm = SerwinFrame.get(new EULAForm());
             eulaForm.setVisible(true);
-        } else {
-            start();
+            return;
         }
+        start();
     }
 
     public static LoadingForm openLoadingForm(String title, String text) {
         Dimension size = new Dimension(500,145);
         LoadingForm loadingForm = (LoadingForm)SerwinFrame.get(new LoadingForm());
+        loadingForm.setText(text); loadingForm.setTitle(title);
         loadingForm.setMinimumSize(size); loadingForm.setSize(size);
         loadingForm.setResizable(false);
         loadingForm.setLocationRelativeTo(null);
