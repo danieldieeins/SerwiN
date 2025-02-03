@@ -196,7 +196,7 @@ public class SetupForm extends SerwinFrame {
         String version = Serwin.config.getString("settings.paper.version");
         String build = comboBox_.getItemAt(comboBox_.getSelectedIndex());
         try {
-            InputStreamReader reader = new InputStreamReader(new URL("https://papermc.io/api/v2/projects/paper/versions/" + version + "/builds/" + build + "/").openStream());
+            InputStreamReader reader = new InputStreamReader(new URL("https://api.papermc.io/v2/projects/paper/versions/" + version + "/builds/" + build + "/").openStream());
             JsonObject json = new Gson().fromJson(reader, JsonObject.class);
             JsonArray array = json.get("changes").getAsJsonArray();
             JsonObject build_ = array.get(0).getAsJsonObject();
@@ -332,13 +332,13 @@ public class SetupForm extends SerwinFrame {
     }
 
     private String[] getVersions() {
-        OnlineConfig json = new OnlineConfig("https://papermc.io/api/v2/projects/paper/");
+        OnlineConfig json = new OnlineConfig("https://api.papermc.io/v2/projects/paper/");
         String versionString = json.get("versions").toString().replace("[", "").replace("]", "").replace(" ", "");
         return versionString.split(",");
     }
 
     private String[] getBuilds(String version) {
-        OnlineConfig json = new OnlineConfig("https://papermc.io/api/v2/projects/paper/versions/" + version);
+        OnlineConfig json = new OnlineConfig("https://api.papermc.io/v2/projects/paper/versions/" + version);
         String versionString = json.get("builds").toString().replace("[", "").replace("]", "").replace(" ", "");
         return versionString.split(",");
     }

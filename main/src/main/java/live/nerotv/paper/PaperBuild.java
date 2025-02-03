@@ -14,13 +14,13 @@ public class PaperBuild {
 
     public static PaperBuild getLatest() {
         try {
-            URL projectsUrl = new URL("https://papermc.io/api/v2/projects/paper");
+            URL projectsUrl = new URL("https://api.papermc.io/v2/projects/paper");
             InputStream projectsInputStream = projectsUrl.openStream();
             JsonElement projectsJsonElement = JsonParser.parseReader(new InputStreamReader(projectsInputStream));
             JsonObject projectsJsonObject = projectsJsonElement.getAsJsonObject();
             JsonArray versions = projectsJsonObject.get("versions").getAsJsonArray();
             String latestVersion = versions.get(versions.size()-1).getAsString();
-            URL versionUrl = new URL("https://papermc.io/api/v2/projects/paper/versions/" + latestVersion);
+            URL versionUrl = new URL("https://api.papermc.io/v2/projects/paper/versions/" + latestVersion);
             InputStream versionInputStream = versionUrl.openStream();
             JsonElement versionJsonElement = JsonParser.parseReader(new InputStreamReader(versionInputStream));
             JsonObject versionJsonObject = versionJsonElement.getAsJsonObject();
@@ -38,7 +38,7 @@ public class PaperBuild {
 
     public static PaperBuild getLatest(String version) {
         try {
-            URL versionUrl = new URL("https://papermc.io/api/v2/projects/paper/versions/" + version);
+            URL versionUrl = new URL("https://api.papermc.io/v2/projects/paper/versions/" + version);
             InputStream versionInputStream = versionUrl.openStream();
             JsonElement versionJsonElement = JsonParser.parseReader(new InputStreamReader(versionInputStream));
             JsonObject versionJsonObject = versionJsonElement.getAsJsonObject();
