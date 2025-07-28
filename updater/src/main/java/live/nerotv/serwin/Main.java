@@ -2,6 +2,7 @@ package live.nerotv.serwin;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.zyneonstudios.nexus.utilities.file.FileGetter;
 import com.zyneonstudios.nexus.utilities.json.GsonUtility;
 import com.zyneonstudios.nexus.utilities.storage.JsonStorage;
 
@@ -22,26 +23,41 @@ public class Main {
             System.out.println("Created cache folder.");
         }
 
-        JsonObject data = GsonUtility.getObject("https://raw.githubusercontent.com/danieldieeins/SerwiN/refs/heads/master/data.json");
-        JsonStorage config = new JsonStorage("./serwin.json");
-        config.ensure("settings.updater.targetVersion",data.get("recommendedVersion").getAsString());
-        config.ensure("settings.updater.usedVersion",data.get("recommendedVersion").getAsString());
+        try {
+            JsonObject data = GsonUtility.getObject("https://raw.githubusercontent.com/danieldieeins/SerwiN/refs/heads/master/data.json");
+            JsonStorage config = new JsonStorage("./serwin.json");
+            config.ensure("settings.updater.targetVersion", "latest");
+            config.ensure("settings.updater.usedVersion", data.get("recommendedVersion").getAsString());
 
-        if(config.getString("settings.updater.targetVersion").equals(config.getString("settings.updater.usedVersion"))&&serwin.exists()) {
-            launch(args);
-            return;
-        } else {
-            if(serwin.exists()) {
-                serwin.delete();
+            String target = config.getString("settings.updater.targetVersion");
+            if (config.getString("settings.updater.targetVersion").equalsIgnoreCase("latest")) {
+                target = data.get("recommendedVersion").getAsString();
             }
-            JsonArray versions = data.getAsJsonArray("versions");
-            for(int i = 0; i < versions.size(); i++) {
-                JsonObject version = versions.get(i).getAsJsonObject();
-                if(version.get("tag").getAsString().equals(config.getString("settings.updater.targetVersion"))) {
-                    String url = version.get("download").getAsString();
-                    System.out.println("Downloading " + url);
+
+            if (!target.startsWith("v")) {
+                target = "v" + target;
+            }
+
+            if (target.equals(config.getString("settings.updater.usedVersion")) && serwin.exists()) {
+                launch(args);
+                return;
+            } else {
+                if (serwin.exists()) {
+                    serwin.delete();
+                }
+                JsonArray versions = data.getAsJsonArray("versions");
+                for (int i = 0; i < versions.size(); i++) {
+                    JsonObject version = versions.get(i).getAsJsonObject();
+                    if (version.get("tag").getAsString().equals(target)) {
+                        String url = version.get("download").getAsString();
+                        FileGetter.downloadFile(url, serwin.getAbsolutePath());
+                        config.set("settings.updater.usedVersion", version.get("tag"));
+                    }
                 }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("Couldn't check for latest version or update SerwiN, launching last used version if exists.");
         }
 
 
