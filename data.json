@@ -1,0 +1,19 @@
+{
+  "recommendedVersion": "2025.7-beta.2",
+  "versions": [
+    {
+      "tag": "v2025.7-beta.2",
+      "title": "Add -Xms \"passthrough\" temporary workaround",
+      "message": "If this version is causing issues, use 2025.7-beta.1",
+      "link": "https://github.com/danieldieeins/SerwiN/releases/tag/v2025.7-beta.2",
+      "download": "https://github.com/danieldieeins/SerwiN/releases/download/v2025.7-beta.2/serwin-2025.7-beta.2.jar"
+    },
+    {
+      "tag": "v2025.7-beta.1",
+      "title": "Add command passthrough",
+      "message": "Read title",
+      "link": "https://github.com/danieldieeins/SerwiN/releases/tag/v2025.7-beta.1",
+      "download": "https://github.com/danieldieeins/SerwiN/releases/download/v2025.7-beta.1/serwin-2025.7-beta.1.jar"
+    }
+  ]
+}
