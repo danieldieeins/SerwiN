@@ -168,6 +168,7 @@ public class Serwin {
             List<String> command = new ArrayList<>();
             command.add("java");
             command.add("-jar");
+            command.add("-Xms" + Runtime.getRuntime().maxMemory());
             command.add("-Xmx" + Runtime.getRuntime().maxMemory());
             String server = path + "/server/server.jar";
             Files.copy(Paths.get(path + "/cache/" + installer.getBuild().getFilename()), Paths.get(server), StandardCopyOption.REPLACE_EXISTING);
