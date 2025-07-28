@@ -24,7 +24,7 @@ public class Main {
         }
 
         try {
-            JsonObject data = GsonUtility.getObject("https://raw.githubusercontent.com/danieldieeins/SerwiN/refs/heads/master/data.json");
+            JsonObject data = GsonUtility.getObject("https://danieldieeins.github.io/SerwiN/data.json");
             JsonStorage config = new JsonStorage("./serwin.json");
             config.ensure("settings.updater.targetVersion", "latest");
             config.ensure("settings.updater.usedVersion", data.get("recommendedVersion").getAsString());
