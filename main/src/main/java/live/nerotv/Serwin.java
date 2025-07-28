@@ -36,6 +36,8 @@ public class Serwin {
     private static String path;
     private static String version;
 
+    private static Process process;
+
     public static void main(String[] a) throws UnsupportedEncodingException {
         initArguments(a);
         path =  System.getProperty("user.dir");
@@ -177,7 +179,7 @@ public class Serwin {
             ProcessBuilder processBuilder = new ProcessBuilder(command);
             processBuilder.directory(folder);
             processBuilder.redirectErrorStream(true);
-            Process process = processBuilder.start();
+            process = processBuilder.start();
 
             CompletableFuture.runAsync(() -> {
                 try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
@@ -194,6 +196,20 @@ public class Serwin {
                 process.destroy();
                 System.out.println("Shutting down...");
             }));
+
+            CompletableFuture.runAsync(() -> {
+                    while (true) {
+                        try {
+                            String line = scanner.nextLine();
+                            BufferedWriter processInput = new BufferedWriter(new OutputStreamWriter(process.getOutputStream()));
+                            processInput.write(line + "\n");
+                            processInput.flush();
+                        } catch (Exception e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+            });
+
 
             int exitCode = process.waitFor();
             logger.log("Server stopped with exit code: " + exitCode);

@@ -6,7 +6,7 @@
 
     <groupId>live.nerotv</groupId>
     <artifactId>serwin-parent</artifactId>
-    <version>2024.3</version>
+    <version>2025.7</version>
     <packaging>pom</packaging>
     <modules>
         <module>updater</module>

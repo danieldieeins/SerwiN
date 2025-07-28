@@ -6,11 +6,11 @@
     <parent>
         <groupId>live.nerotv</groupId>
         <artifactId>serwin-parent</artifactId>
-        <version>2024.3</version>
+        <version>2025.7</version>
     </parent>
 
     <artifactId>serwin</artifactId>
-    <version>2024.3-alpha.4</version>
+    <version>2025.7-beta.1</version>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
