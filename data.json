@@ -1,6 +1,13 @@
 {
-  "recommendedVersion": "v2025.7-beta.2",
+  "recommendedVersion": "v2025.7-beta.3",
   "versions": [
+    {
+      "tag": "v2025.7-beta.3",
+      "title": "Add updater to SerwiN",
+      "message": "Adds an automatic and via json file configurable updater for SerwiN",
+      "link": "https://github.com/danieldieeins/SerwiN/releases/tag/v2025.7-beta.3",
+      "download": "https://github.com/danieldieeins/SerwiN/releases/download/v2025.7-beta.3/static-serwin-2025.7-beta.3-no-updater.jar "
+    },
     {
       "tag": "v2025.7-beta.2",
       "title": "Add -Xms \"passthrough\" temporary workaround",
