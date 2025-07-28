@@ -28,7 +28,7 @@ public class Serwin {
     public static Config config;
     public static Logger logger;
     public static Scanner scanner = new Scanner(System.in);
-    public static String serwin = "2024.3-alpha.4";
+    public static String serwin = "2025.7-beta.3";
     public static boolean desktop;
 
     private static PaperInstaller installer;
@@ -44,6 +44,7 @@ public class Serwin {
         config = new Config(URLDecoder.decode(path+"/serwin.json","UTF-8"));
         logger = new Logger("SERWIN");
         config.checkEntry("settings.paper.autoUpdate",true);
+        config.set("dontTouch.serwin.version",serwin);
         init();
     }
 
