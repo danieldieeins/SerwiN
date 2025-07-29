@@ -29,7 +29,7 @@ public class Serwin {
     public static Config config;
     public static Logger logger;
     public static Scanner scanner = new Scanner(System.in);
-    public static String serwin = "2025.7-beta.4";
+    public static String serwin = "2025.7-beta.5";
     public static boolean desktop;
 
     private static PaperInstaller installer;
