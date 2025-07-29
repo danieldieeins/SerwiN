@@ -15,11 +15,11 @@ import java.util.concurrent.CompletableFuture;
 
 public class Main {
 
-    private static File serwin = new File("cache/serwin-executable.jar");
+    private static File serwin = new File("./cache/serwin-executable.jar");
     private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) throws FileNotFoundException {
-        if (new File("cache/").mkdirs()) {
+        if (new File("./cache/").mkdirs()) {
             System.out.println("Created cache folder.");
         }
 
@@ -69,6 +69,7 @@ public class Main {
     }
 
     private static void launch(String[] args) {
+        System.out.println("Launching SerwiN at "+serwin.getAbsolutePath());
         try {
             List<String> command = new ArrayList<>();
             command.add("java");
@@ -95,8 +96,8 @@ public class Main {
                 }
             });
 
-            Runtime.getRuntime().addShutdownHook(new Thread(() -> {                System.out.println("Shutting down serwin and paper (if running)");
-                System.out.println("Shutting down serwin and paper (if running)");
+            Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+                System.out.println("Shutting down SerwiN and paper (if running)");
                 process.destroy();
                 System.out.println("bye :3");
             }));

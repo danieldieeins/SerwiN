@@ -8,6 +8,7 @@ import live.nerotv.utils.Logger;
 import live.nerotv.window.SerwinFrame;
 import live.nerotv.window.forms.EULAForm;
 import live.nerotv.window.forms.LoadingForm;
+import live.nerotv.window.panel.ConsolePanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -28,7 +29,7 @@ public class Serwin {
     public static Config config;
     public static Logger logger;
     public static Scanner scanner = new Scanner(System.in);
-    public static String serwin = "2025.7-beta.3";
+    public static String serwin = "2025.7-beta.4";
     public static boolean desktop;
 
     private static PaperInstaller installer;
@@ -39,6 +40,7 @@ public class Serwin {
     private static Process process;
 
     public static void main(String[] a) throws UnsupportedEncodingException {
+        System.out.println("Launching SerwiN "+serwin+"...");
         initArguments(a);
         path =  System.getProperty("user.dir");
         config = new Config(URLDecoder.decode(path+"/serwin.json","UTF-8"));
@@ -177,17 +179,32 @@ public class Serwin {
             if (args != null && !args.isEmpty()) {
                 command.addAll(args);
             }
+            if(!command.contains("--nogui")) {
+                command.add("--nogui");
+            }
 
             ProcessBuilder processBuilder = new ProcessBuilder(command);
             processBuilder.directory(folder);
             processBuilder.redirectErrorStream(true);
             process = processBuilder.start();
 
+            ConsolePanel panel;
+            if(desktop) {
+                panel = new ConsolePanel();
+                panel.setVisible(true);
+                panel.setTitle("SerwiN Console (v"+serwin+")");
+            } else {
+                panel = null;
+            }
+
             CompletableFuture.runAsync(() -> {
                 try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
                     String line;
                     while ((line = reader.readLine()) != null) {
                         System.out.println(line);
+                        if(panel!=null) {
+                            panel.append(line);
+                        }
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -212,8 +229,25 @@ public class Serwin {
                     }
             });
 
+            if(panel!=null) {
+                panel.getInputField().addActionListener(e -> {
+                    try {
+                        String line = panel.getInputField().getText();
+                        BufferedWriter processInput = new BufferedWriter(new OutputStreamWriter(process.getOutputStream()));
+                        processInput.write(line + "\n");
+                        processInput.flush();
+                        panel.getInputField().setText("");
+                    } catch (Exception ex) {
+                        throw new RuntimeException(ex);
+                    }
+                });
+            }
+
 
             int exitCode = process.waitFor();
+            if(panel!=null) {
+                panel.dispose();
+            }
             logger.log("Server stopped with exit code: " + exitCode);
 
         } catch (Exception e) {
@@ -261,5 +295,22 @@ public class Serwin {
         }
         args = new ArrayList<>();
         args.addAll(Arrays.asList(a));
+    }
+
+    public static void restartApplication() throws Exception {
+        final String javaBin = System.getProperty("java.home") + File.separator + "bin" + File.separator + "java";
+        final File currentJar = new File(Serwin.class.getProtectionDomain().getCodeSource().getLocation().toURI());
+        if(!currentJar.getName().endsWith(".jar"))
+            return;
+
+        final ArrayList<String> command = new ArrayList<>();
+        command.add(javaBin);
+        command.add("-jar");
+        command.add(currentJar.getPath());
+        command.addAll(args);
+
+        final ProcessBuilder builder = new ProcessBuilder(command);
+        builder.start();
+        System.exit(0);
     }
 }

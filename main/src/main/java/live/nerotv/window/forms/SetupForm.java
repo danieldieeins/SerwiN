@@ -34,7 +34,6 @@ public class SetupForm extends SerwinFrame {
     private JButton updateButton;
     private JButton versionButton;
     private JButton buildButton;
-    private JButton saveButton;
 
     private JPanel content;
     private JComboBox<String> comboBox_;
@@ -49,6 +48,8 @@ public class SetupForm extends SerwinFrame {
     public void init() {
         content.setLayout(layout);
         content.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        content.setBackground(Color.decode("#171717"));
 
         updateButton.addActionListener(e -> {
             SerwinFrame frame = SerwinFrame.get(new SetupForm());
@@ -79,8 +80,10 @@ public class SetupForm extends SerwinFrame {
 
     private void initUpdate() {
         autoUpdate = new JPanel();
+        autoUpdate.setBackground(null);
         autoUpdate.setLayout(new BorderLayout());
         JTextArea text = new JTextArea();
+        text.setBackground(null);
         text.setText("During startup, should SerwiN check if there are new paper builds and install them if so?");
         text.setEditable(false);
         text.setFont(new Font(text.getFont().getFontName(), Font.PLAIN, 24));
@@ -127,8 +130,10 @@ public class SetupForm extends SerwinFrame {
 
     private void initVersion() {
         version = new JPanel();
+        version.setBackground(null);
         version.setLayout(new BorderLayout());
         JTextArea text_ = new JTextArea();
+        text_.setBackground(null);
         text_.setText("Which Minecraft version do you want to use?");
         text_.setEditable(false);
         text_.setFont(new Font(text_.getFont().getFontName(), Font.PLAIN, 24));
@@ -161,8 +166,10 @@ public class SetupForm extends SerwinFrame {
 
     private void initBuild() {
         build = new JPanel();
+        build.setBackground(null);
         build.setLayout(new BorderLayout());
         JTextArea text_ = new JTextArea();
+        text_.setBackground(null);
         text_.setText("Which Paper build do you want to use?");
         text_.setEditable(false);
         text_.setFont(new Font(text_.getFont().getFontName(), Font.PLAIN, 24));
@@ -214,8 +221,10 @@ public class SetupForm extends SerwinFrame {
 
     private void initFinish() {
         final_ = new JPanel();
+        final_.setBackground(null);
         final_.setLayout(new BorderLayout());
         JTextArea text_ = new JTextArea();
+        text_.setBackground(null);
         text_.setText("Everything set up!\nYou can now click on “Start” to complete the setup wizard.");
         text_.setEditable(false);
         text_.setFont(new Font(text_.getFont().getFontName(), Font.PLAIN, 24));
@@ -232,7 +241,11 @@ public class SetupForm extends SerwinFrame {
         proceed.setForeground(Color.white);
         proceed.addActionListener(e -> {
             dispose();
-            Serwin.start();
+            try {
+                Serwin.restartApplication();
+            } catch (Exception e1) {
+                throw new RuntimeException(e1);
+            }
         });
         buttons_.add(proceed);
         buttons_.setBackground(null);
@@ -249,7 +262,6 @@ public class SetupForm extends SerwinFrame {
         }
         updateButton.setEnabled(true);
         buildButton.setEnabled(false);
-        saveButton.setEnabled(false);
         versionButton.setEnabled(false);
         content.add(autoUpdate);
         if (panel.equalsIgnoreCase("version")) {
@@ -269,7 +281,6 @@ public class SetupForm extends SerwinFrame {
             versionButton.setEnabled(true);
             updateButton.setEnabled(true);
             buildButton.setEnabled(false);
-            saveButton.setEnabled(false);
             content.add(version);
         }
         if (panel.equalsIgnoreCase("update")) {
@@ -289,7 +300,6 @@ public class SetupForm extends SerwinFrame {
             buildButton.setEnabled(true);
             updateButton.setEnabled(true);
             versionButton.setEnabled(true);
-            saveButton.setEnabled(false);
             String[] versions = getBuilds(Serwin.config.getString("settings.paper.version"));
             Collections.reverse(Arrays.asList(versions));
             comboBox_.removeAllItems();
@@ -314,7 +324,6 @@ public class SetupForm extends SerwinFrame {
         updateButton.setText("Restart setup");
         if (!panel.equalsIgnoreCase("final")) {
             content.add(final_);
-            saveButton.setEnabled(true);
             updateButton.setEnabled(true);
             versionButton.setEnabled(false);
             buildButton.setEnabled(false);
@@ -378,12 +387,6 @@ public class SetupForm extends SerwinFrame {
         buildButton.setEnabled(false);
         buildButton.setText("Paper build");
         menu.add(buildButton, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        saveButton = new JButton();
-        saveButton.setBackground(new Color(-13858075));
-        saveButton.setEnabled(false);
-        saveButton.setForeground(new Color(-1));
-        saveButton.setText("Save and proceed");
-        menu.add(saveButton, new GridConstraints(4, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final Spacer spacer1 = new Spacer();
         menu.add(spacer1, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         content = new JPanel();
