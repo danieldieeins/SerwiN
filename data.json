@@ -1,19 +1,26 @@
 {
-  "recommendedVersion": "v2025.7-beta.4",
+  "recommendedVersion": "v2025.7-beta.5",
   "versions": [
+    {
+      "tag": "v2025.7-beta.5",
+      "title": "Update custom SerwiN console",
+      "message": "Redesigned the SerwiN console panel and added more functionality to it",
+      "link": "https://github.com/danieldieeins/SerwiN/releases/tag/v2025.7-beta.5",
+      "download": "https://github.com/danieldieeins/SerwiN/releases/download/v2025.7-beta.5/static-serwin-2025.7-beta.5-NO-UPDATER.jar"
+    },
     {
       "tag": "v2025.7-beta.4",
       "title": "Add custom console pane",
       "message": "Added a custom console panel for SerwiN on desktop pc's",
       "link": "https://github.com/danieldieeins/SerwiN/releases/tag/v2025.7-beta.4",
-      "download": "https://github.com/danieldieeins/SerwiN/releases/download/v2025.7-beta.4/static-serwin-2025.7-beta.4-NO-UPDATER.jar "
+      "download": "https://github.com/danieldieeins/SerwiN/releases/download/v2025.7-beta.4/static-serwin-2025.7-beta.4-NO-UPDATER.jar"
     },
     {
       "tag": "v2025.7-beta.3",
       "title": "Add updater to SerwiN",
       "message": "Adds an automatic and via json file configurable updater for SerwiN",
       "link": "https://github.com/danieldieeins/SerwiN/releases/tag/v2025.7-beta.3",
-      "download": "https://github.com/danieldieeins/SerwiN/releases/download/v2025.7-beta.3/static-serwin-2025.7-beta.3-no-updater.jar "
+      "download": "https://github.com/danieldieeins/SerwiN/releases/download/v2025.7-beta.3/static-serwin-2025.7-beta.3-no-updater.jar"
     },
     {
       "tag": "v2025.7-beta.2",
