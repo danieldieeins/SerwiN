@@ -49,8 +49,6 @@ public class SetupForm extends SerwinFrame {
         content.setLayout(layout);
         content.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        content.setBackground(Color.decode("#171717"));
-
         updateButton.addActionListener(e -> {
             SerwinFrame frame = SerwinFrame.get(new SetupForm());
             frame.setMinimumSize(new Dimension(640, 360));

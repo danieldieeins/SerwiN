@@ -240,6 +240,7 @@ public class Serwin {
                     } catch (Exception ex) {
                         throw new RuntimeException(ex);
                     }
+                    panel.getTextArea().setCaretPosition(panel.getTextArea().getDocument().getLength());
                 });
             }
 
