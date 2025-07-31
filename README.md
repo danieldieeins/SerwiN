@@ -10,4 +10,4 @@ A paper managing and updating utility
 ![SerwiN version](https://img.shields.io/badge/SerwiN-2025.7%20Beta%205-green)
 
 
-WORK IN PROGRESS
+WORK IN PROGRESS - DESCRIPTION COMING SOON
