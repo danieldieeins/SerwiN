@@ -16,7 +16,7 @@ public class ConsolePanel extends SerwinFrame {
     private final JTextField inputField = new JTextField();
 
     public ConsolePanel() {
-        setTitleBackground(Color.decode("#202224"));
+        setTitleBackground(Color.decode("#292c30"));
         setTitleForeground(Color.white);
         setLayout(new BorderLayout());
 
@@ -25,9 +25,9 @@ public class ConsolePanel extends SerwinFrame {
 
         setTitle("SerwiN Paper Console (Beta)");
 
-        sideMenu.setBackground(Color.decode("#202224"));
+        sideMenu.setBackground(Color.decode("#292c30"));
         JLabel placeholder = new JLabel("SerwiN");
-        placeholder.setForeground(Color.decode("#202224"));
+        placeholder.setForeground(Color.decode("#292c30"));
         sideMenu.add(placeholder);
 
         String commandPlaceholder = "Write here...";
